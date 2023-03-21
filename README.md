@@ -9,8 +9,13 @@
 
 - npm install express sequelize sqlite3 mysql2 sequelize-cli fs path
 
+## Requerimientos
+
+- En app/config/config.json: introduce tu username, contraseña y databsae
+
 ## Funcionamiento
 
 - npm run start para ejecutar server express en una termnial
 - npm run dev para ejecutar server sequelize en otra terminal
+
 - importar: sequelize_postman_collection.json en POSTMAN
