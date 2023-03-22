@@ -1,16 +1,10 @@
+const filterId = require("../helpers/filterId")
 const { User, Game } = require("../models")
 
 const jugarPartida = async (req, res) => {
-  const id = req.params.id
-  let players = await User.findAll()
-  players = players.length
-  const player = await User.findOne({ where: { id: id } })
-  if (!player) {
-    console.log(`el id: ${req.params.id} no existe`)
-    res.send(
-      `el id: ${req.params.id} no existe, hay ${players} jugadores registrados`
-    )
-  } else {
+  const id = await filterId(req.params.id)
+  if (id) {
+    const player = await User.findOne({ where: { id: id } })
     const dau1 = Math.floor(Math.random(1) * 3)
     const dau2 = 5 // Math.floor(Math.random(1) * 6)
     if (dau1 + dau2 === 7) {
@@ -40,13 +34,15 @@ const jugarPartida = async (req, res) => {
         { where: { id: id } }
       ).catch((err) => console.log(err))
     }
-    // FIN GESTION DADOS Y USER INICIO GAME
     await Game.create({
       player: id,
       dau1: dau1,
       dau2: dau2,
       resultatPartida: dau1 + dau2 == 7 ? "win" : "loose",
     })
+  } else {
+    console.log(`el id: ${req.params.id} no existe`)
+    res.send(`el id: ${req.params.id} no existe`)
   }
 }
 

@@ -1,4 +1,4 @@
-const { User, Games } = require("../models")
+const { User, Game } = require("../models")
 
 const resetTables = async () => {
   await User.destroy({ truncate: true })
