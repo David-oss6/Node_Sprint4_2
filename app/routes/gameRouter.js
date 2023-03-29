@@ -1,15 +1,15 @@
 const express = require("express")
 const router = express.Router()
-const { jugarPartida } = require("../controllers/jugarPartida")
-const { eliminarPartides } = require("../controllers/eliminarPartides")
+const { playGame } = require("../controllers/playGame")
 const {
-  mostrarPartidesJugador,
-} = require("../controllers/mostrarPartidesJugador")
+  showPlayerGames,
+} = require("../controllers/showPlayerGames")
+const { deleteGames } = require("../controllers/deleteGames")
 
-router.post("/game/:id", jugarPartida)
+router.post("/game/:id", playGame)
 
-router.delete("/games/:id", eliminarPartides)
+router.delete("/games/:id", deleteGames)
 
-router.get("/games/:id", mostrarPartidesJugador)
+router.get("/games/:id", showPlayerGames)
 
 module.exports = router

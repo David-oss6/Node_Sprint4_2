@@ -1,8 +1,9 @@
-const { User, Game } = require("../models")
+const { userRepo } = require("../dependency-injection/dependency-injection")
 
 const resetTables = async () => {
-  await User.destroy({ truncate: true })
-  await Game.destroy({ truncate: true })
+  //borrar tablas
+  await userRepo.resetTable()
+  await gameRepo.resetTable()
 }
 
 module.exports = {

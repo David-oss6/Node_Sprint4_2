@@ -5,15 +5,17 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app/app.js",
-    "mysql": "nodemon app/index.js",
+    "mysql": "set DB=mysql&& nodemon app/index.js",
+    "mongodb": "set DB=mongodb&& nodemon app/conn.js",
     "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^9.0.2",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
+    "mongodb": "^5.1.0",
     "mysql2": "^3.2.0",
     "path": "^0.12.7",
     "sequelize": "^6.29.3",

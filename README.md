@@ -17,6 +17,42 @@
 ## Funcionamiento
 
 - npm run start para ejecutar server express en una termnial
-- npm run mysql para ejecutar server sequelize en otra terminal
+
+  - npm run mysql para ejecutar server sequelize en otra terminal
+    o
+  - npm run mongodb para ejecutar server mongoDB en otra terminal
 
 - importar: sequelize_postman_collection.json en POSTMAN
+
+```
+app/src
+    backend
+            - dependency-inyection
+            - router
+            - server
+            - app
+            - db-config
+    users
+        - application
+            - use-cases
+        - domain
+            - entities
+                - user
+        - infrastructure
+            - controllers
+            - userRepository
+    games
+        - application
+            - use-cases
+                - gameCreator
+                - gameUpdater
+        - domain
+            - entities
+                - game
+            - value-objects
+                - userId
+                - dice
+        - infrastructure
+            - controllers
+            - gameRepository
+```

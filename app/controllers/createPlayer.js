@@ -1,22 +1,17 @@
-const { User } = require("../models")
+const { userRepo } = require("../dependency-injection/dependency-injection")
 
 const createPlayer = async (req, res) => {
+  console.log(userRepo)
   let playerName = req.params.name
   let exist = null
   if (playerName === undefined) {
     playerName = "anonim"
   }
   if (playerName !== "anonim") {
-    exist = await User.findOne({ where: { name: req.params.name } })
+    exist = await userRepo.playerExists(req.params.name)
   }
   if (exist === null) {
-    User.create({
-      name: playerName,
-      partidesWin: 0,
-      partidesLose: 0,
-      percentatgeExit: 0,
-      dataRegistre: new Date().toISOString(),
-    }).catch((err) => err && console.log(err))
+    await userRepo.createPlayer(playerName)
     console.log(`${playerName} registrado como jugador`)
     res.send(`${playerName} registrado como jugador`)
   } else {
