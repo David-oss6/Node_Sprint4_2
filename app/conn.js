@@ -4,6 +4,10 @@ const app = express()
 const port = process.env.MONGODB_PORT || 5001
 
 let dbConnection
+if (process.env.DB = "mongodb") {
+  connectToDb()
+  const getDb = () => dbConnection
+}
 const connectToDb = () => {
   MongoClient.connect("mongodb://localhost:27017/juego_dados")
     .then((client) => {
@@ -18,10 +22,7 @@ const connectToDb = () => {
       console.log(err)
     })
 }
-if (process.env.DB = "mongodb") {
-  connectToDb()
-  const getDb = () => dbConnection
-}
+
 
 
 

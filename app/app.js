@@ -18,7 +18,7 @@ app.use(playersRouter)
 app.use(gameRouter)
 app.use(rankingRouter)
 
-
+console.log('********* process.env.DB=', process.env.DB, '***********')
 app.listen(port, () => {
   console.log(`Server iniciado en puerto ${port}`)
 })
