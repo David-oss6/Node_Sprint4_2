@@ -2,11 +2,11 @@
 
 ## Requerimientos
 
-    * Para usar base de datos MYSQL:*
+    *Para usar base de datos MYSQL:*
         - Se necesita tener instalado algun plicación (como MYSQL Workbench) con un schema creado con el nombre: juego_dados
         - En app/config/config.json: introduce tu username, contraseña y databsae
 
-    * Para usar base de datos MongoDb:*
+    *Para usar base de datos MongoDb:*
         - Necesitarás tener instalado MongoDb Compass con una base de datos creada con el nombre: juego_dados
 
 ## Funcionamiento
