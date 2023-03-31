@@ -1,4 +1,4 @@
-const { getDb } = require("../mongoConnection")
+const { getDb } = require("../database/mongoConnection")
 const { ObjectId } = require('mongodb');
 
 class UserRepoMongodb {

@@ -1,4 +1,4 @@
-const { Game } = require('../models')
+const { Game } = require('../database/models')
 
 class GameRepoMysql {
     async deleteGames(id) {

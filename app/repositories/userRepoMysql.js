@@ -1,4 +1,4 @@
-const { User } = require("../models")
+const { User } = require("../database/models")
 
 class UserRepoMysql {
   async createPlayer(playerName) {

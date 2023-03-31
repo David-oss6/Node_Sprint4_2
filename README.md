@@ -1,28 +1,32 @@
 # Entrega 4.2
 
-- npm i express
-- npm i sequelize sqlite3
-- npm i mysql2
-- npm i sequelize-cli
-- npm i fs
-- npm i path
-- npm i dotenv
-
-- npm install express sequelize sqlite3 mysql2 sequelize-cli fs path dotenv
-
 ## Requerimientos
 
-- En app/config/config.json: introduce tu username, contraseña y databsae
+    ### Para usar base de datos MYSQL:
+        - Se necesita tener instalado algun plicación (como MYSQL Workbench) con un schema creado con el nombre: juego_dados
+        - En app/config/config.json: introduce tu username, contraseña y databsae
+
+    ### Para usar base de datos MongoDb:
+        - Necesitarás tener instalado MongoDb Compass con una base de datos creada con el nombre: juego_dados
 
 ## Funcionamiento
+    - npm i para instalar las dependencias necesarias
 
-- npm run start para ejecutar server express en una termnial
+    - npm run mysql para ejecutar la aplicación con base de datos MYSQL
+    - npm run mongodb para ejecutar la aplicación con base de datos MONGODB
 
-  - npm run mysql para ejecutar server sequelize en otra terminal
-    o
-  - npm run mongodb para ejecutar server mongoDB en otra terminal
+    - importar: entrega_42.postman_collection.json en POSTMAN
 
-- importar: sequelize_postman_collection.json en POSTMAN
+### Dependencias instaladas:
+    - express
+    - sequelize sqlite3
+    - mysql2
+    - sequelize-cli
+    - fs
+    - path
+    - dotenv
+
+
 
 ```
 app/src
