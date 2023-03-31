@@ -10,8 +10,7 @@
         - Necesitarás tener instalado MongoDb Compass con una base de datos creada con el nombre: juego_dados
 
 ## Funcionamiento
-    - Asegurarse de que estamos en la raiz del proyecto
-
+    - Asegúrate de que estás en la raíz del proyecto
     - npm i para instalar las dependencias necesarias
 
     - npm run mysql para ejecutar la aplicación con base de datos MYSQL
