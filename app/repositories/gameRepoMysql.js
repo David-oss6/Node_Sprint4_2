@@ -14,7 +14,7 @@ class GameRepoMysql {
         })
     }
 
-    async showPlayerGames(id) {
+    async getGames(id) {
         const partides = await Game.findAll({ where: { player: id } })
         return partides
     }

@@ -4,9 +4,9 @@
   "description": "sample project for node",
   "main": "app.js",
   "scripts": {
-    "start": "set DB=mongodb&& nodemon app/app.js",
-    "mysql": "set DB=mysql&& nodemon app/index.js",
-    "mongodb": "set DB=mongodb&& nodemon app/conn.js",
+    "start": "nodemon app/app.js",
+    "mysql": "set DB=mysql&& nodemon app/app.js",
+    "mongodb": "set DB=mongodb&& nodemon app/app.js",
     "test": "jest"
   },
   "author": "",

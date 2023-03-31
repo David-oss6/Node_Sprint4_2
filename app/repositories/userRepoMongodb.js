@@ -1,9 +1,30 @@
-
+const { getDb } = require("../mongoConnection")
+const { ObjectId } = require('mongodb');
 
 class UserRepoMongodb {
 
+  async playerExists(newName) {
+    const db = await getDb()
+    let exists = await db.collection('users').findOne({ name: newName })
+    return exists
+  }
+
+  async getPlayers() {
+    console.log('llega a getPlayers')
+    let players = []
+    const db = await getDb()
+    const users = await db.collection('users').find()
+    await users.forEach(user => {
+      players.push(user)
+    });
+    console.log(players)
+    return players
+  }
+
   async createPlayer(playerName) {
-    await db.users.insertOne({
+    const db = await getDb()
+    console.log(`llega creatPlayer`)
+    await db.collection('users').insertOne({
       name: playerName,
       partidesWin: 0,
       partidesLose: 0,
@@ -11,122 +32,94 @@ class UserRepoMongodb {
       dataRegistre: new Date().toISOString(),
       games: [],
     })
-    // try {
-    //   await client.connect()
-    //   const player = {
-    //     name: playerName,
-    //     partidesWin: 0,
-    //     partidesLose: 0,
-    //     percentatgeExit: 0,
-    //     dataRegistre: new Date().toISOString(),
-    //     games: [],
-    //   }
-    //   const result = await client
-    //     .db("juego_dados")
-    //     .collection("users")
-    //     .insertOne(player)
-    // } catch (e) {
-    //   console.error(e)
-    // } finally {
-    //   await client.close()
-    // }
-
   }
 
   async filterId(id) {
+    const db = getDb()
     let result
-    let player = await db.users.find({ id: id })
+    let player = await db.collection('users').findOne({ _id: new ObjectId(id) })
     player ? result = id : result = null
     return result
   }
 
-  async getPlayers() {
-    const users = await db.users.find()
-    return users
-  }
-
   async getOnePlayer(id) {
-    const player = await db.users.find({ id: id })
+    const db = getDb()
+    const player = await db.collection('users').findOne({ _id: new ObjectId(id) })
     return player
   }
 
-  async updatePlayer(win, loose, percentatge, id) {
-
-    // await User.update(
-    //   {
-    //     partidesWin: win,
-    //     partidesLose: loose,
-    //     percentatgeExit: percentatge,
-    //   },
-    //   { where: { id: id } }
-    // ).catch((err) => console.log(err))
-  }
-
-  async playerExists(newName) {
-    // let exists = await User.findOne({ where: { name: newName } })
-    // return exists
-  }
-
   async changeName(newName, newId) {
-    // await User.update({ name: newName }, { where: { id: newId } })
+    const db = await getDb()
+    await db.collection('users').updateOne({ _id: new ObjectId(newId) }, { $set: { name: newName } })
+
   }
 
-  async deleteGames(id) {
-    // await User.update(
-    //   {
-    //     partidesWin: 0,
-    //     partidesLose: 0,
-    //     percentatgeExit: 0,
-    //   },
-    //   { where: { id: id } }
-    // )
-  }
-
-  async getWinner() {
-    // const ranking = await User.findAll({
-    //   order: ["percentatgeExit"],
-    // })
-    // return ranking[ranking.length - 1]
-  }
-
-  async getLoser() {
-    // const ranking = await User.findAll({
-    //   order: ["percentatgeExit"],
-    // })
-    // return ranking[0]
-  }
-
-  async getRanking() {
-    // const ranking = await User.findAll({
-    //   order: ["percentatgeExit"],
-    // })
-    // return ranking
-  }
-
-  async deleteGames(id) {
-    // await Game.destroy({ where: { player: id } })
+  async updatePlayer(win, loose, percentatge, id) {
+    const db = getDb()
+    await db.collection('users').updateOne({ _id: new ObjectId(id) }, {
+      $set: {
+        partidesWin: win,
+        partidesLose: loose,
+        percentatgeExit: percentatge,
+      }
+    })
   }
 
   async createGame(id, dau1, dau2) {
-    // await Game.create({
-    //   player: id,
-    //   dau1: dau1,
-    //   dau2: dau2,
-    //   resultatPartida: dau1 + dau2 == 7 ? "win" : "loose",
-    // })
+    const db = await getDb()
+    let result = "loose"
+    if (dau1 + dau2 == 7) { result = "win" }
+    const newGame = {
+      player: id,
+      dau1: dau1,
+      dau2: dau2,
+      resultatPartida: result
+    }
+    await db.collection('users').updateOne({ _id: new ObjectId(id) }, { $push: { games: newGame } })
+  }
+  async deleteGames(id) {
+    console.log('llega DELETE games')
+    const db = await getDb()
+    await db.collection('users').updateOne({ _id: new ObjectId(id) }, { $set: { games: [] } })
   }
 
-  async showPlayerGames(id) {
-    // const partides = await Game.findAll({ where: { player: id } })
-    // return partides
+  async getGames(id) {
+
+    const db = getDb()
+    const user = await db.collection('users').findOne({ _id: new ObjectId(id) })
+    const partides = user.games
+    return partides
   }
 
+  async getRanking() {
+    const db = await getDb()
+    let rankingList = []
+    const ranking = await db.collection('users').find({}).sort({ percentatgeExit: -1 })
+    await ranking.forEach((ele) => rankingList.push(ele))
+    console.log(rankingList)
+    return rankingList
+  }
+  async getWinner() {
+    const db = await getDb()
+    let rankingList = []
+    const ranking = await db.collection('users').find({}).sort({ percentatgeExit: -1 })
+    await ranking.forEach((ele) => rankingList.push(ele))
+    console.log(rankingList)
+    return rankingList[0]
+  }
+
+  async getLoser() {
+    const db = await getDb()
+    let rankingList = []
+    const ranking = await db.collection('users').find({}).sort({ percentatgeExit: 1 })
+    await ranking.forEach((ele) => rankingList.push(ele))
+    console.log(rankingList)
+    return rankingList[0]
+  }
   async resetTable() {
-    // await User.destroy({ truncate: true })
+    const db = await getDb()
+    await db.collection('users').deleteMany({})
   }
-
-
-
 }
 
 module.exports = { UserRepoMongodb }
