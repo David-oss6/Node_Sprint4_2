@@ -17,6 +17,7 @@
     - npm run mongodb para ejecutar la aplicación con base de datos MONGODB
 
     - importar: entrega_42.postman_collection.json en POSTMAN
+    - ¡IMPORTANTE! Hay que hacer post/.../login en primer lugar para que funcione la utenticación JWT.
 
 ### Dependencias instaladas:
     - express
@@ -26,6 +27,7 @@
     - fs
     - path
     - dotenv
+    - jsonwebtoken
 
 
 

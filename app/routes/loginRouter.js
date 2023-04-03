@@ -6,9 +6,9 @@ const router = require('express').Router()
 
 
 router.post('/login', postLogin)
-router.get('/info', tokenVerification, (req, res) => {
-    res.send('token correcto')
-})
+// router.get('/info', tokenVerification, (req, res) => {
+//     res.send('token correcto')
+// })
 
 
 module.exports = router

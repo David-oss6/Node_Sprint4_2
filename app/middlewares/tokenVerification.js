@@ -27,7 +27,7 @@ const tokenVerification = (req, res, next) => {
             }
         })
     }
-    console.log('desde tokenVerification', token)
+
 }
 
 module.exports = { tokenVerification }

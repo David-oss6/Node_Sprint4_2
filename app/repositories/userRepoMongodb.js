@@ -10,14 +10,14 @@ class UserRepoMongodb {
   }
 
   async getPlayers() {
-    console.log('llega a getPlayers')
+
     let players = []
     const db = await getDb()
     const users = await db.collection('users').find()
     await users.forEach(user => {
       players.push(user)
     });
-    console.log(players)
+
     return players
   }
 
@@ -96,7 +96,6 @@ class UserRepoMongodb {
     let rankingList = []
     const ranking = await db.collection('users').find({}).sort({ percentatgeExit: -1 })
     await ranking.forEach((ele) => rankingList.push(ele))
-    console.log(rankingList)
     return rankingList
   }
   async getWinner() {
@@ -104,7 +103,6 @@ class UserRepoMongodb {
     let rankingList = []
     const ranking = await db.collection('users').find({}).sort({ percentatgeExit: -1 })
     await ranking.forEach((ele) => rankingList.push(ele))
-    console.log(rankingList)
     return rankingList[0]
   }
 
@@ -113,7 +111,6 @@ class UserRepoMongodb {
     let rankingList = []
     const ranking = await db.collection('users').find({}).sort({ percentatgeExit: 1 })
     await ranking.forEach((ele) => rankingList.push(ele))
-    console.log(rankingList)
     return rankingList[0]
   }
   async resetTable() {
