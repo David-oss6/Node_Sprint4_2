@@ -1,14 +1,15 @@
+const { envDatabase } = require("../envDatabase")
 const { GameRepoMysql } = require("../repositories/gameRepoMysql")
 const { UserRepoMongodb } = require("../repositories/userRepoMongodb")
 const { UserRepoMysql } = require("../repositories/userRepoMysql")
 
 
 
-if ((process.env.DB = "mysql")) {
+if ((envDatabase == "mysql")) {
     userRepo = new UserRepoMysql()
     gameRepo = new GameRepoMysql()
 }
-if ((process.env.DB == "mongodb")) {
+if ((envDatabase == "mongodb")) {
     userRepo = new UserRepoMongodb()
     gameRepo = new UserRepoMongodb()
 }
