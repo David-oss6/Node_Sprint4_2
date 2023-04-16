@@ -8,7 +8,6 @@ const gameRouter = require("./routes/gameRouter")
 const rankingRouter = require("./routes/rankingRouter")
 const loginRouter = require('./routes/loginRouter')
 const { connectToDb } = require("./database/mongoConnection")
-//const { envDatabase } = require('./envDatabase')
 
 const port = process.env.PORT || 5000
 

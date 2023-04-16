@@ -1,8 +1,10 @@
 const { userRepo } = require("../dependency-injection/dependency-injection")
+const { GetPlayerCreator } = require("../services/GetPlayerCreator")
 
 
 const getPlayers = async (req, res) => {
-  const users = await userRepo.getPlayers()
+  const getPlayerCreator = new GetPlayerCreator(userRepo)
+  const users = await getPlayerCreator.run()
   res.send(users)
 }
 

@@ -7,12 +7,10 @@ const key = process.env.JWT_KEY
 app.set('key', key)
 
 const postLogin = async (req, res) => {
-    console.log(key)
     const userLogin = registredUsers
         .find((usu) => {
             return usu.name == req.body.name && usu.pass == req.body.pass
         })
-    console.log('desde postLogin', userLogin)
     if (userLogin) {
         const payload = {
             check: true

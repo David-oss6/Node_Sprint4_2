@@ -1,4 +1,4 @@
-const { userRepo } = require("../dependency-injection/dependency-injection")
+const { userRepo, gameRepo } = require("../dependency-injection/dependency-injection")
 
 const resetTables = async () => {
   //borrar tablas

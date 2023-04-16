@@ -10,7 +10,6 @@ class UserRepoMongodb {
   }
 
   async getPlayers() {
-
     let players = []
     const db = await getDb()
     const users = await db.collection('users').find()
@@ -23,7 +22,6 @@ class UserRepoMongodb {
 
   async createPlayer(playerName) {
     const db = await getDb()
-    console.log(`llega creatPlayer`)
     await db.collection('users').insertOne({
       name: playerName,
       partidesWin: 0,
@@ -78,13 +76,11 @@ class UserRepoMongodb {
     await db.collection('users').updateOne({ _id: new ObjectId(id) }, { $push: { games: newGame } })
   }
   async deleteGames(id) {
-    console.log('llega DELETE games')
     const db = await getDb()
-    await db.collection('users').updateOne({ _id: new ObjectId(id) }, { $set: { games: [] } })
+    await db.collection('users').updateOne({ _id: new ObjectId(id) }, { $set: { games: [], partidesWin: 0, partidesLose: 0, percentatgeExit: 0 } })
   }
 
   async getGames(id) {
-
     const db = getDb()
     const user = await db.collection('users').findOne({ _id: new ObjectId(id) })
     const partides = user.games
@@ -98,6 +94,7 @@ class UserRepoMongodb {
     await ranking.forEach((ele) => rankingList.push(ele))
     return rankingList
   }
+
   async getWinner() {
     const db = await getDb()
     let rankingList = []

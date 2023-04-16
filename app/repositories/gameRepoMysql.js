@@ -15,8 +15,12 @@ class GameRepoMysql {
     }
 
     async getGames(id) {
+        let result
         const partides = await Game.findAll({ where: { player: id } })
-        return partides
+        partides.length == 0
+            ? result = "Aquest jugador no ha jugat cap partida"
+            : result = partides
+        return result
     }
 
     async resetTable() {

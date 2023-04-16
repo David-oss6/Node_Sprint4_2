@@ -1,17 +1,9 @@
 const { userRepo } = require("../dependency-injection/dependency-injection")
+const { RankingCreator } = require("../services/RankingCreator")
 
 const getRanking = async (req, res) => {
-  const ranking = await userRepo.getRanking()
-  let sendRanking = []
-  let sendMitjana
-  let mitjana = 0
-  ranking.forEach((ele) => {
-    sendRanking.push(`${ele.name} percentatge: ${ele.percentatgeExit}`)
-    mitjana += ele.percentatgeExit
-  })
-
-  mitjana = (mitjana * ranking.length + 1) / 100
-  sendMitjana = `Percentatge d exit mitjà: ${mitjana}`
-  res.send({ sendRanking, sendMitjana })
+  const rankingCreator = new RankingCreator(userRepo)
+  const ranking = await rankingCreator.run()
+  res.send(ranking)
 }
 module.exports = { getRanking }
