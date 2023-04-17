@@ -1,15 +1,11 @@
-const { userRepo } = require("../dependency-injection/dependency-injection")
-const { FilterIdCreator } = require("./FilterIdCreator")
-
-
 class GetGamesCreator {
-    constructor(repository) {
+    constructor(repository, user_repo) {
         this.repository = repository
+        this.secondary_repo = user_repo
     }
 
     async run(req_id) {
-        const filterIdCreator = new FilterIdCreator(userRepo)
-        const id = await filterIdCreator.run(req_id)
+        const id = await this.secondary_repo.filterId(req_id)
         if (id) {
             let result
             const games = await this.repository.getGames(id)

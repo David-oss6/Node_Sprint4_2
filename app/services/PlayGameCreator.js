@@ -1,10 +1,7 @@
-const { gameRepo } = require("../dependency-injection/dependency-injection")
-const { CreateGameCreator } = require("./CreateGameCreator")
-
-
 class PlayGameCreator {
-    constructor(repository) {
-        this.repository = repository
+    constructor(user_repo, game_repo) {
+        this.repository = user_repo
+        this.secondaryRepo = game_repo
     }
 
     async run(req) {
@@ -28,8 +25,7 @@ class PlayGameCreator {
                 percentatge = (win * totales) / 100
             }
             await this.repository.updatePlayer(win, loose, percentatge, id)
-            const createGameCreator = new CreateGameCreator(gameRepo)
-            await createGameCreator.run(id, dau1, dau2)
+            await this.secondaryRepo.createGame(id, dau1, dau2)
         } else {
             finalMessage = `el id: ${req.params.id} no existe`
         }

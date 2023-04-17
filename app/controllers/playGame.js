@@ -1,7 +1,7 @@
-const { userRepo } = require("../dependency-injection/dependency-injection")
+const { userRepo, gameRepo } = require("../dependency-injection/dependency-injection")
 const { PlayGameCreator } = require("../services/PlayGameCreator")
 const playGame = async (req, res) => {
-  const playeGameCreator = new PlayGameCreator(userRepo)
+  const playeGameCreator = new PlayGameCreator(userRepo, gameRepo)
   const result = await playeGameCreator.run(req)
   res.send(result)
 }

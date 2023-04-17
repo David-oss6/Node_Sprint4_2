@@ -1,22 +1,16 @@
-const { userRepo } = require("../dependency-injection/dependency-injection")
-const { FilterIdCreator } = require("./FilterIdCreator")
-
 class DeleteGamesCreator {
-    constructor(repository) {
-        this.repository = repository
+    constructor(game_repo, user_repo) {
+        this.repository = game_repo
+        this.secondaryRepo = user_repo
+
     }
 
     async run(req, req_id) {
         let message
-        const filterIdCreator = new FilterIdCreator(userRepo)
-        const id = await filterIdCreator.run(req_id)
-        //const id = await userRepo.filterId(req_id)
-        //console.log(id)
+        const id = await this.secondaryRepo.filterId(req_id)
         if (id) {
             await this.repository.deleteGames(req.params.id)
-            await userRepo.deleteGames(id)
-            // const deleGamesCreator_user = new DeleteGamesCreator(userRepo)
-            // await deleGamesCreator_user.run(id)
+            await this.secondaryRepo.deleteGames(id)
             message = `Partides eliminades`
         } else {
             message = `el id: ${req_id} no existe`
