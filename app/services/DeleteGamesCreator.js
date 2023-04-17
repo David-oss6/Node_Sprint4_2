@@ -5,11 +5,11 @@ class DeleteGamesCreator {
 
     }
 
-    async run(req, req_id) {
+    async run(req_id) {
         let message
         const id = await this.secondaryRepo.filterId(req_id)
         if (id) {
-            await this.repository.deleteGames(req.params.id)
+            await this.repository.deleteGames(req_id)
             await this.secondaryRepo.deleteGames(id)
             message = `Partides eliminades`
         } else {

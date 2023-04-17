@@ -4,8 +4,8 @@ class PlayGameCreator {
         this.secondaryRepo = game_repo
     }
 
-    async run(req) {
-        const id = await this.repository.filterId(req.params.id)
+    async run(req_id) {
+        const id = await this.repository.filterId(req_id)
         let win, loose, totales, percentatge, finalMessage
         if (id) {
             const player = await this.repository.getOnePlayer(id)
@@ -27,7 +27,7 @@ class PlayGameCreator {
             await this.repository.updatePlayer(win, loose, percentatge, id)
             await this.secondaryRepo.createGame(id, dau1, dau2)
         } else {
-            finalMessage = `el id: ${req.params.id} no existe`
+            finalMessage = `el id: ${req_id} no existe`
         }
         return finalMessage
     }

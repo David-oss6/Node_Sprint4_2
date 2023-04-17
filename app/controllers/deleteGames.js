@@ -4,8 +4,7 @@ const { DeleteGamesCreator } = require('../services/DeleteGamesCreator')
 
 const deleteGames = async (req, res) => {
   const deleteGamesCreator = new DeleteGamesCreator(gameRepo, userRepo)
-  const id = req.params.id
-  const result = await deleteGamesCreator.run(req, id)
+  const result = await deleteGamesCreator.run(req.params.id)
   res.send(result)
 
 
